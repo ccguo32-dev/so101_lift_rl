@@ -1,0 +1,27 @@
+# ---- Python virtualenv ----
+.venv/
+venv/
+env/
+
+# ---- Python bytecode / caches ----
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- Upstream repo (cloned pinned at build time, see REPORT.md) ----
+SO-ARM100/
+
+# ---- OS / editor noise ----
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# NOTE: renders/ and so101_lift/renders/ (smoke renders) are intentionally NOT ignored,
+# they are showcase assets used by the README.

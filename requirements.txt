@@ -1,0 +1,8 @@
+# Direct runtime dependencies for M1 (simulation-environment validation).
+# Pinned to the versions actually installed in .venv (verified 2026-10-10).
+# Regenerate with: .venv\Scripts\python.exe -m pip freeze
+mujoco==3.15.0
+gymnasium==1.4.0
+numpy==2.2.6
+imageio==2.38.0
+pillow==12.3.0
