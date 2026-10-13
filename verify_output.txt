@@ -1,0 +1,81 @@
+==============================================================================
+SO-101 MuJoCo model verification
+==============================================================================
+MJCF file      : C:\Users\35184\Desktop\S101\SO-ARM100\Simulation\SO101\scene.xml
+Model name     : scene
+MuJoCo version : 3.15.0
+nq=6  nv=6  nu=6  nbody=8  ngeom=31  nmesh=13  nsensor=0
+
+------------------------------------------------------------------------------
+JOINTS  (every joint in the compiled model)
+------------------------------------------------------------------------------
+name                   type     qpos   dof  lim     range_min     range_max  min[deg]  max[deg]
+shoulder_pan           hinge       0     0    Y     -1.919862      1.919862   -110.00    110.00
+shoulder_lift          hinge       1     1    Y     -1.745329      1.745329   -100.00    100.00
+elbow_flex             hinge       2     2    Y     -1.690000      1.690000    -96.83     96.83
+wrist_flex             hinge       3     3    Y     -1.658063      1.658063    -95.00     95.00
+wrist_roll             hinge       4     4    Y     -2.743847      2.841206   -157.21    162.79
+gripper                hinge       5     5    Y     -0.174533      1.745329    -10.00    100.00
+
+------------------------------------------------------------------------------
+ACTUATORS
+------------------------------------------------------------------------------
+name               trntype    joint                gear   ctrl_min   ctrl_max    f_min    f_max  clim   flim
+shoulder_pan       joint      shoulder_pan       1.0000    -1.9199     1.9199    -3.35     3.35     Y      Y
+shoulder_lift      joint      shoulder_lift      1.0000    -1.7453     1.7453    -3.35     3.35     Y      Y
+elbow_flex         joint      elbow_flex         1.0000    -1.6900     1.6900    -3.35     3.35     Y      Y
+wrist_flex         joint      wrist_flex         1.0000    -1.6581     1.6581    -3.35     3.35     Y      Y
+wrist_roll         joint      wrist_roll         1.0000    -2.7439     2.8412    -3.35     3.35     Y      Y
+gripper            joint      gripper            1.0000    -0.1745     1.7453    -3.35     3.35     Y      Y
+
+actuators 6, joints 6; map: shoulder_pan->shoulder_pan, shoulder_lift->shoulder_lift, elbow_flex->elbow_flex, wrist_flex->wrist_flex, wrist_roll->wrist_roll, gripper->gripper
+
+------------------------------------------------------------------------------
+RENDERING
+------------------------------------------------------------------------------
+  wrote C:\Users\35184\Desktop\S101\renders\so101_frame.png  (640x480, imageio)
+  frame shape=(480, 640, 3) dtype=uint8 min=9 max=255
+fixed  jaw mesh geom id = 27  (wrist_roll_follower_so101_v1)
+moving jaw mesh geom id = 29  (moving_jaw_so101_v1)
+
+------------------------------------------------------------------------------
+GRIPPER SWEEP  joint 'gripper'  qmin=-0.174533 rad (-10.00 deg) -> qmax=1.745329 rad (100.00 deg)
+aperture = distance between the two jaws' distal tip points (mm)
+------------------------------------------------------------------------------
+    q[rad]     q[deg]   tip aperture   centroid gap   raw min dist
+   -0.1745     -10.00          6.784         26.704          1.209
+   -0.0145      -0.83         19.328         31.904          1.040
+    0.1454       8.33         32.543         36.916          0.935
+    0.3054      17.50         45.661         41.702          1.031
+    0.4654      26.67         58.524         46.228          1.022
+    0.6254      35.83         71.029         50.463          1.081
+    0.7854      45.00         83.089         54.379          1.148
+    0.9454      54.17         94.623         57.950          1.300
+    1.1054      63.33        105.556         61.153          0.898
+    1.2654      72.50        115.817         63.967          0.913
+    1.4254      81.67        125.339         66.374          1.737
+    1.5853      90.83        134.061         68.358          2.629
+    1.7453     100.00        141.927         69.906          2.518
+
+tip aperture at qmin (mean first 3) = 9.136 mm
+tip aperture at qmax (mean last  3) = 140.413 mm
+centroid gap at qmin / qmax         = 27.755 / 69.626 mm
+monotonic steps (increasing q): up=60 down=0 of 60
+d(tip aperture)/dq = +0.071880 m/rad
+raw min mesh distance is 0.898-2.686 mm over the whole sweep -> dominated by the hinge housing, NOT a usable opening proxy
+VERDICT  : LOW q  ==> CLOSED ;  HIGH q ==> OPEN   (jaw aperture grows with q)
+  wrote C:\Users\35184\Desktop\S101\renders\gripper_qmin.png  (640x480, imageio)
+  wrote C:\Users\35184\Desktop\S101\renders\gripper_qmax.png  (640x480, imageio)
+
+==============================================================================
+SUMMARY
+==============================================================================
+MJCF            : C:\Users\35184\Desktop\S101\SO-ARM100\Simulation\SO101\scene.xml
+joints (6)     : shoulder_pan, shoulder_lift, elbow_flex, wrist_flex, wrist_roll, gripper
+actuators (6)  : shoulder_pan, shoulder_lift, elbow_flex, wrist_flex, wrist_roll, gripper
+gripper qmin/hi : -0.174533 / 1.745329 rad  (-10.00 / 100.00 deg)
+tip aperture    : 9.136 mm (qmin) -> 140.413 mm (qmax)
+verdict         : LOW q  ==> CLOSED ;  HIGH q ==> OPEN   (jaw aperture grows with q)
+images          : C:\Users\35184\Desktop\S101\renders
+==============================================================================
+wrote C:\Users\35184\Desktop\S101\renders\verify_so101_result.json
